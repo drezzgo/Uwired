@@ -5,14 +5,16 @@ import Graph from '../sections/Graph.astro';
 import Info from '../sections/Info.astro';
 import Hero from '../sections/Hero.astro';
 import PrincipalInfo from '../sections/PrincipalInfo.astro';
+import Aplicativo from '@/sections/Aplicativo.astro';
 ---
 
 <Layout title="Uwired">
-	<Hero />
+	<Hero /> <!-- Presentacion -->
 	<main>
-		<PrincipalInfo />
-		<Info />
-		<Graph />
+		<PrincipalInfo /> <!-- Marco Teorico Basado en lo que usaremos de la ANE -->
+		<Info /> <!-- Manual de Usuario -->
+		<Graph /> <!-- ¿Grafico explicativo? -->
+		<Aplicativo /> <!-- Aplicacion -->
 	</main>
 	<Footer />
 </Layout>
