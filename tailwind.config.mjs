@@ -7,7 +7,13 @@ export default {
 		extend: {
 			colors: {
 				'primary': '#AE3419',
-				'secondary': '#fff'
+				'secondary': '#fff',
+				'dark': '#333333'
+			},
+
+			scale: {
+				'0.15': '0.15',
+				'0.20': '0.20',
 			}
 		},
 	},
