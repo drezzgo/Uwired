@@ -1,40 +1,10 @@
-function Marlon2(){
+function MarlonGod(){
     var altura = document.getElementById('Alt').value;
-    var conforme;
-    var pire_antena = PIRE();
+    var banda_antena = document.getElementById('TipoBandas').value;
     var frecuencia = document.getElementById('fr').value;
-    var distancia_min_PG;
-   
-    if(pire_antena<=40){//PIRE MENOR A 40 dbm
-        if(altura < 2.2){
-            conforme = false;
-        }else{
-            conforme = true;
-        }
-        
-    }else if(pire_antena<=50 ){//PIRE MENOR A 50 dbm
+    var pire_antena = PIRE();
 
-        if(altura < 2.5){
-            conforme = false;
-        }else{
-            conforme = true;
-        }
-
-        if(frecuencia<1500){
-
-            distancia_min_PG=2;
-
-        }else{
-            distancia_min_PG=1;
-        }
-
-        
-
-    }else{//PIRE mayor a 50 dbm
-
-        
-    }
-
+    
 }
 
 
@@ -93,7 +63,6 @@ function PIRE (){
     'PIRE NORMAL : ' + piredbm + '\n' +
     'Resultado PIRE en W con atenuacion ' + pireW_at + '\n'+
     'Resultado PIRE en dbm con atenuacion ' + pire_dbm_at + '\n');
-
+    
     return pire_dbm_at;
 }
-
