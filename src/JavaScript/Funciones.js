@@ -4,7 +4,7 @@ let potencia_antenas = [];
 
 function MarlonGod(){
     var altura = document.getElementById('Alt').value;
-//    var alturaCentro = document.getElementById('AltC').value;
+    var alturaCentro = document.getElementById('AltC').value;
     var banda_antena = document.getElementById('TipoBandas').value;
     var frecuencia = document.getElementById('fr').value;
     var DwtG = document.getElementById('Dwt').value;
