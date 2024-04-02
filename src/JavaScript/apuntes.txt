@@ -1,0 +1,13 @@
+Primera parte
+
+--- PIRE < 40
+    1 - No necesita medicion
+    2 - No puede haber otra antena o instalar la antena con el PIRE < 10W si hay otra 
+        antena a una distancia de 10m en una F - 1500 mHz o a 5 metros para F >= 1500 
+        en la direccion del lobulo y una distancia de 2 metros en otras direcciones
+        para cualquier rango de frecuencia
+
+
+--- PIRE > 50    
+    1 - Si el PIRE es menor o igual a 50 dBm, la distancia minima del zonas publicas, 
+        la direccion del lobulo es 2 metros (F < 1500 mHz) o 1 metro (F >= 1500 mHz)

@@ -6,7 +6,7 @@ import Logo from "../components/HeroLogo.astro"
   <div class="w-1/2">
     <form class="mx-44" id="InformacionEstacion">
       <div class="form-group">
-        <label for="nombreT">Titular:</label>
+        <label for="nombreT">Titular</label>
         <input
           type="text"
           class="form-control"
@@ -17,7 +17,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="UsoE">Para qué se usa la estación:</label>
+        <label for="UsoE">Para qué se usa la estación</label>
         <select class="form-control" id="TipoE" name="TipoE">
           <option value="Telefonia">Telefonia</option>
           <option value="Radio">Radio</option>
@@ -26,7 +26,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="TipoA">Tipo de Área:</label>
+        <label for="TipoA">Tipo de Área</label>
         <select class="form-control" id="TipoA" name="TipoA">
           <option value="rural">Rural</option>
           <option value="urbano">Urbano</option>
@@ -34,7 +34,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="Lat">Latitud:</label>
+        <label for="Lat">Latitud</label>
         <input
           type="number"
           class="form-control"
@@ -45,7 +45,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="Long">Longitud:</label>
+        <label for="Long">Longitud</label>
         <input
           type="number"
           class="form-control"
@@ -56,7 +56,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="Alt">Altura:</label>
+        <label for="Alt">Altura (En m desde el piso)</label>
         <input
           type="number"
           class="form-control"
@@ -68,7 +68,24 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="Pot">Potencia:</label>
+        <label for="TipoAnt">Modelo de antena</label>
+        <select class="form-control" id="TipoAnt" name="TipoAnt">
+          <option value="AAS">AAS</option>
+          <option value="FDD">FDD</option>  
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="TipoBandas">Bandas de la Antena</label>
+        <select class="form-control" id="TipoAnt" name="TipoAnt">
+          <option value="Unica">Unica</option>
+          <option value="Multibanda">Multibanda</option>
+          <option value="IMT">IMT</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="Pot">Potencia (W)</label>
         <input
           type="number"
           class="form-control"
@@ -80,7 +97,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="Gan">Ganancia:</label>
+        <label for="Gan">Ganancia (dbm)</label>
         <input
           type="number"
           class="form-control"
@@ -92,7 +109,7 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
-        <label for="fr">Frecuencia (MHz):</label>
+        <label for="fr">Frecuencia (MHz)</label>
         <input
           type="number"
           class="form-control"
@@ -103,7 +120,31 @@ import Logo from "../components/HeroLogo.astro"
         />
       </div>
 
-      <button type="button" class="btn btn-primary" onclick="captura()"
+      <div class="form-group">
+        <label for="in">Inclinacion (°)</label>
+        <input
+          type="number"
+          class="form-control"
+          step="0.01"
+          id="in"
+          name="in"
+          placeholder="45°"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="ac">Acimut (°)</label>
+        <input
+          type="number"
+          class="form-control"
+          step="0.01"
+          id="ac"
+          name="ac"
+          placeholder="90°"
+        />
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="Marlon2()"
         >Prueba</button
       >
     </form>
@@ -114,7 +155,15 @@ import Logo from "../components/HeroLogo.astro"
     </div>
     <div class="texto hidden">
       <div class=" animate-fade-in">
-      ¡Formulario enviado!
+      Las especificaciones de la antena acatan la resolucion 773 de la ANE, dentro de las caracteristicas
+      que se proporcionan en la <span class="">tabla 2 - Procedimiento de evaluacion clasificada de cumplimiento
+      de los niveles de exposicion</span>
+         <br><br>
+      <li>
+        <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
+        <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
+        <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </li>
       </div>
     </div>
   </div>
