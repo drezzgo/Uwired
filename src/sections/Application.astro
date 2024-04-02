@@ -1,0 +1,154 @@
+<section>
+    <section id="App" class="mx-44 mt-8 text-dark">
+        <h2 class="text-3xl font-bold text-primary">Aplicativo</h2>
+        <p class="mt-4 text-xl">La Resolución 773 </p>
+    </section>
+  <astro-layout justify="center" align="center">
+    <section class="mt-20">
+      <div class="container">
+        <section>
+          <form class="mx-44" id="InformacionEstacion">
+            <div class="form-group">
+              <label for="nombreT">Titular:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombre_titular"
+                id="nombre_titular"
+                placeholder="Nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="UsoE">Para qué se usa la estación:</label>
+              <select class="form-control" id="TipoE" name="TipoE">
+                <option value="Telefonia">Telefonia</option>
+                <option value="Radio">Radio</option>
+                <option value="Television">Tv</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="TipoA">Tipo de Área:</label>
+              <select class="form-control" id="TipoA" name="TipoA">
+                <option value="rural">Rural</option>
+                <option value="urbano">Urbano</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="Lat">Latitud:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="Lat"
+                name="Lat"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="Long">Longitud:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="Long"
+                name="Long"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="Alt">Altura:</label>
+              <input
+                type="number"
+                class="form-control"
+                step="0.01"
+                id="Alt"
+                name="Alt"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="Pot">Potencia:</label>
+              <input
+                type="number"
+                class="form-control"
+                step="0.01"
+                id="Pot"
+                name="Pot"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="Gan">Ganancia:</label>
+              <input
+                type="number"
+                class="form-control"
+                step="0.01"
+                id="Gan"
+                name="Gan"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="fr">Frecuencia (MHz):</label>
+              <input
+                type="number"
+                class="form-control"
+                step="0.01"
+                id="fr"
+                name="fr"
+                placeholder="0"
+              />
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="captura()"
+              >Prueba</button
+            >
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <style>
+      .container {
+        border: 2px solid black;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+    <script type="text/javascript" src="../src/JavaScript/Funciones.js"
+    ></script>
+  </astro-layout>
+</section>
