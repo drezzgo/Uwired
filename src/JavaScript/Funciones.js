@@ -19,4 +19,7 @@ function captura() {
           'Potencia: ' + potencia + '\n' +
           'Ganancia: ' + ganancia + '\n' +
           'Frecuencia (MHz): ' + frecuencia);
+    
+          document.querySelector('.logo').style.display = 'none';
+          document.querySelector('.texto').classList.remove('hidden');
 }
