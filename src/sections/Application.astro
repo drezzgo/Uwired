@@ -68,6 +68,20 @@ import Logo from "../components/HeroLogo.astro"
       </div>
 
       <div class="form-group">
+        <label for="AltC">Altura (En m desde el piso hasta el centro de radiacion)</label>
+        <input
+          type="number"
+          class="form-control"
+          step="0.01"
+          id="AltC"
+          name="AltC"
+          placeholder="0"
+        />
+      </div>
+
+      
+
+      <div class="form-group">
         <label for="TipoAnt">Modelo de antena</label>
         <select class="form-control" id="TipoAnt" name="TipoAnt">
           <option value="AAS">AAS</option>
@@ -77,12 +91,15 @@ import Logo from "../components/HeroLogo.astro"
 
       <div class="form-group">
         <label for="TipoBandas">Bandas de la Antena</label>
-        <select class="form-control" id="TipoBandas" name="TipoBandas">
-          <option value="Unica">Unica</option>
-          <option value="Multibanda">Multibanda</option>
-          <option value="IMT">IMT</option>
+        <select class="form-control" id="TipoBandas" name="TipoBandas" onchange="mostrarCamposAdicionales()">
+          <option value="Unica">Unica (IMT)</option>
+          <option value="Multibanda">Multibanda (IMT)</option>
+          <option value="DiferenteIMT">Diferente a IMT</option>
         </select>
       </div>
+
+      <!-- Bandas adicionales prueba -->
+      <div id="camposAdicionales"></div>
 
       <div class="form-group">
         <label for="Pot">Potencia (W)</label>
@@ -119,7 +136,17 @@ import Logo from "../components/HeroLogo.astro"
           placeholder="0"
         />
       </div>
-
+      <div class="form-group">
+        <label for="dtl">Downtild (grados)</label>
+        <input
+          type="number"
+          class="form-control"
+          step="0.01"
+          id="Dwt"
+          name="Dwt"
+          placeholder="0"
+        />
+      </div>
       <div class="form-group">
         <label for="in">Inclinacion (°)</label>
         <input
@@ -131,7 +158,6 @@ import Logo from "../components/HeroLogo.astro"
           placeholder="45°"
         />
       </div>
-
       <div class="form-group">
         <label for="ac">Acimut (°)</label>
         <input
@@ -153,22 +179,97 @@ import Logo from "../components/HeroLogo.astro"
     <div class="logo">
       <Logo class="w-[750px] animate-pop">
     </div>
-    <div class="texto hidden">
+   
+    <!-- < 40 dBm - Hecho -->
+    <div class="Pm40am2 hidden">
       <div class=" animate-fade-in">
-      Las especificaciones de la antena acatan la resolucion 773 de la ANE, dentro de las caracteristicas
-      que se proporcionan en la <span class=" italic">tabla 2 - Procedimiento de evaluacion clasificada de cumplimiento
-      de los niveles de exposicion</span>
+      <p>Las especificaciones de la antena no esta conforme la resolucion 773 de la ANE, dentro de las caracteristicas
+      que se proporcionan en la <span class=" italic">tabla 2 no cumple con la altura minima del sistema irradiante - Procedimiento de evaluacion clasificada de cumplimiento
+      de los niveles de exposicion (Pagina 20)</span>.</p> 
       <br><br>
-      <li>
+      <ol>
         <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
         <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
         <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
-      </li>
+      </ol>
       </div>
     </div>
-  </div>
+    <div class="Pm40aM2 hidden">
+      <div class=" animate-fade-in text-2xl">
+      <p>
+        Las especificaciones de la antena acatan la resolucion 773 de la . Dentro de las características 
+        proporcionadas en la <span class=" italic">tabla 2 - Procedimiento de evaluacion clasificada de
+        cumplimiento de los niveles de exposicion (Pagina 20)</span>, la altura de la antena cumple con
+        el requisito mínimo establecido para antenas cuyo <span class="font-bold">PIRE</span> sea menor
+        <span class="font-bold">40 dBm</span>.
+      </p> 
+      <br><br>
+      <p>Respecto a otras consideraciones importantes contempladas en la resolución, la antena:</p>
+      <ol>
+        <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
+        <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
+        <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+    <!-- < 50 dBm - Falta -->
+    <div class="Pm50am25 hidden">
+      <div class=" animate-fade-in">
+      <p>Las especificaciones de la antena no esta conforme la resolucion 773 de la ANE, dentro de las caracteristicas
+      que se proporcionan en la <span class=" italic">tabla 2 no cumple con la altura minima del sistema irradiante - Procedimiento de evaluacion clasificada de cumplimiento
+      de los niveles de exposicion (Pagina 20)</span>. Con antenas cuyo <span class="font-bold">PIRE</span> sea menor
+          <span class="font-bold">50 dBm</span></p> 
+      <br><br>
+      <ol>
+        <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
+        <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
+        <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+    <div class="Pm50aM25fm15 hidden">
+      <div class=" animate-fade-in">
+        <p>Las especificaciones de la antena acatan la resolucion 773 de la . Dentro de las características 
+          proporcionadas en la <span class=" italic">tabla 2 - Procedimiento de evaluacion clasificada de
+          cumplimiento de los niveles de exposicion (Pagina 20)</span>, la altura de la antena cumple con
+          el requisito mínimo establecido y es obligatorio que la distancia al publico general debe ser de 
+          maximo de <span class="font-bold">2 m</span> de cercania.<br>
+          Para antenas cuyo <span class="font-bold">PIRE</span> sea menora <span class="font-bold">50 dBm</span>.
+        </p> 
+      <br><br>
+      <ol>
+        <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
+        <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
+        <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+    <div class="Pm50aM25fM15 hidden">
+      <div class=" animate-fade-in">
+        <p>Las especificaciones de la antena acatan la resolucion 773 de la . Dentro de las características 
+          proporcionadas en la <span class=" italic">tabla 2 - Procedimiento de evaluacion clasificada de
+          cumplimiento de los niveles de exposicion (Pagina 20)</span>, la altura de la antena cumple con
+          el requisito mínimo establecido y es obligatorio que la distancia al publico general debe ser de 
+          maximo de <span class="font-bold">1 m</span> de cercania.<br>
+          Para antenas cuyo <span class="font-bold">PIRE</span> sea menora <span class="font-bold">50 dBm</span>.
+        </p> 
+      <br><br>
+      <ol>
+        <ul>1 - No necesita de mediciones</ul> <!-- Medicion -->
+        <ul>2 - No necesita de señalizacion</ul> <!-- Señalizacion -->
+        <ul>3 - La distancia ocupacional</ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
 
     
+  
+    </div>
+
+    <!-- > 50 dBm - Hecho -->
+
+  </div>
+
 
 
     <style>

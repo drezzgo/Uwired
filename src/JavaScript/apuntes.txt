@@ -11,3 +11,8 @@ Primera parte
 --- PIRE > 50    
     1 - Si el PIRE es menor o igual a 50 dBm, la distancia minima del zonas publicas, 
         la direccion del lobulo es 2 metros (F < 1500 mHz) o 1 metro (F >= 1500 mHz)
+
+-- Pendiente 
+
+Hacer la ecuacion 3 distancia D, para eso se necesita la dinamica de agregar mas bandas
+a una antena cuando esta es multibanda
