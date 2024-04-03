@@ -10,11 +10,16 @@ function MarlonGod(){
     var DwtG = document.getElementById('Dwt').value;
     var pire_antena = PIRE();
 
+    var alturaCentro_Persona=parseInt(alturaCentro)-2;
     var conforme;
     var distancia_min_PG;
     var s;
     var Hb;
     var DwtR;
+    var DmAPG;
+    var DmAOP;
+    var mDHPG;
+    var mDHOP;
 /*    
     Simbologia de los textos
     
@@ -77,15 +82,36 @@ function MarlonGod(){
                  s= 10;
             }
             distancia_min_PG= Math.sqrt((pire_antena/(4*Math.PI*s)));//distancia delimita zona obj 
-            
+            DwtR=DwtG*(Math.PI/180);//Downtilt en radianes
+            Hb=Math.max(DwtR*Math.tan(DwtR/*Math.PI / 15*/), 3.5); //es la altura en la que debe estar la parte mas baja radiante de la antena, sino, comparar con la altura ingresada
 
         }else if(banda_antena=="Multibanda"){
             
         }else if(banda_antena=="DiferenteIMT"){
+            if(frecuencia>=30 && frecuencia<400){
+
+                DmAPG=0.319*Math.sqrt(pire_antena);
+                DmAOP=0.143*Math.sqrt(pire_antena);
+
+            }else if(frecuencia>=400 && frecuencia<2000){
+
+                DmAPG=6.38*Math.sqrt(pire_antena/frecuencia);
+                DmAOP=2.92*Math.sqrt(pire_antena/frecuencia);
+
+            }else if(frecuencia>=2000 && frecuencia<300000){
+
+                DmAPG=0.143*Math.sqrt(pire_antena);
+                DmAOP=0.0638*Math.sqrt(pire_antena);
+            }
             
+            mDHPG=math.sqrt((math.pow(DmAPG,2))-(math.pow(alturaCentro_Persona,2)));
+            mDHOP=math.sqrt( (math.pow(DmAOP,2))-(math.pow(alturaCentro_Persona,2)));
+
+
+
+              
         }
-        DwtR=DwtG*(Math.PI/180);//Downtilt en radianes
-        Hb=Math.max(DwtR*Math.tan(DwtR/*Math.PI / 15*/), 3.5); //es la altura en la que debe estar la parte mas baja radiante de la antena, sino, comparar con la altura ingresada
+       
     }
     
 }
