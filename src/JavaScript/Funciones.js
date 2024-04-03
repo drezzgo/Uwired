@@ -8,7 +8,8 @@ function MarlonGod(){
     var banda_antena = document.getElementById('TipoBandas').value;
     var frecuencia = document.getElementById('fr').value;
     var DwtG = document.getElementById('Dwt').value;
-    var pire_antena = PIRE();
+    var pire_antena = PIRE(1);
+    var pire_antena_W=PIRE(2);
 
     var alturaCentro_Persona=parseInt(alturaCentro)-2;
     var conforme;
@@ -81,37 +82,47 @@ function MarlonGod(){
             }else if(frecuencia>2000 && frecuencia <=300000){
                  s= 10;
             }
-            distancia_min_PG= Math.sqrt((pire_antena/(4*Math.PI*s)));//distancia delimita zona obj 
-            DwtR=DwtG*(Math.PI/180);//Downtilt en radianes
-            Hb=Math.max(DwtR*Math.tan(DwtR/*Math.PI / 15*/), 3.5); //es la altura en la que debe estar la parte mas baja radiante de la antena, sino, comparar con la altura ingresada
+            //distancia delimita zona al publico general - cambiar a Watts
+            distancia_min_PG= Math.sqrt((pire_antena_W/(4*Math.PI*s)));
 
+            //Downtilt en radianes
+            DwtR=DwtG*(Math.PI/180);
+
+            //Altura en la que debe estar la parte mas baja radiante
+            //de la antena, sino, comparar con la altura ingresada
+            Hb=Math.max(DwtR*Math.tan(DwtR/*Math.PI / 15*/), 3.5);
+
+            
+            alert("La distancia minima del publico general : " + distancia_min_PG.toFixed(2) + " metros\n" +
+            "Downtild en radiantes : " + DwtR.toFixed(2) + " metros\n" +
+            "Hb (Altura minima del irradiante) : " + Hb.toFixed(2) + " metros\n")
         }else if(banda_antena=="Multibanda"){
             
         }else if(banda_antena=="DiferenteIMT"){
             if(frecuencia>=30 && frecuencia<400){
 
-                DmAPG=0.319*Math.sqrt(pire_antena);
-                DmAOP=0.143*Math.sqrt(pire_antena);
+                DmAPG=0.319*Math.sqrt(pire_antena_W);///ESTA    
+                DmAOP=0.143*Math.sqrt(pire_antena_W);
 
             }else if(frecuencia>=400 && frecuencia<2000){
 
-                DmAPG=6.38*Math.sqrt(pire_antena/frecuencia);
-                DmAOP=2.92*Math.sqrt(pire_antena/frecuencia);
+                DmAPG=6.38*Math.sqrt(pire_antena_W/frecuencia_W);
+                DmAOP=2.92*Math.sqrt(pire_antena_W/frecuencia_W);
 
             }else if(frecuencia>=2000 && frecuencia<300000){
 
-                DmAPG=0.143*Math.sqrt(pire_antena);
-                DmAOP=0.0638*Math.sqrt(pire_antena);
+                DmAPG=0.143*Math.sqrt(pire_antena_W);
+                DmAOP=0.0638*Math.sqrt(pire_antena_W);
             }
             
-            mDHPG=math.sqrt((math.pow(DmAPG,2))-(math.pow(alturaCentro_Persona,2)));
-            mDHOP=math.sqrt( (math.pow(DmAOP,2))-(math.pow(alturaCentro_Persona,2)));
+            mDHPG=Math.sqrt((Math.pow(DmAPG,2))-(Math.pow(alturaCentro_Persona,2)));
+            mDHOP=Math.sqrt( (Math.pow(DmAOP,2))-(Math.pow(alturaCentro_Persona,2)));
 
-
-
-              
+            alert("Minima distancia a la antena para publico general : " + DmAPG.toFixed(2) + "metros\n" +
+            "La distancia minima ocupacional : " + DmAOP.toFixed(2) + "metros\n" +
+            "La distancia minima horizontal a la estructura : " + mDHPG.toFixed(2) + " metros\n" +
+            "La distancia minima ocupacional a la estructura : : " + mDHOP.toFixed(2) + " metros")
         }
-       
     }
     
 }
@@ -151,12 +162,13 @@ function mostrarCamposAdicionales() {
     }
   }
 
-function PIRE (){
+function PIRE (unidad){
     var modelo_antena = document.getElementById('TipoAnt').value;
     var potencia_W = document.getElementById('Pot').value; //Watts
     var ganancia_dbm = document.getElementById('Gan').value; //dBm
     
     //var ganancia_W= Math.pow(10, (ganancia_dbm/10))*0.001; Pasar dBm a Watts
+
 
     var potencia_dbm = 10*Math.log10(potencia_W/0.001);
     var piredbm = parseInt(potencia_dbm) + parseInt(ganancia_dbm);
@@ -176,7 +188,12 @@ function PIRE (){
     'Resultado PIRE en W con atenuacion ' + pireW_at + '\n'+
     'Resultado PIRE en dbm con atenuacion ' + pire_dbm_at + '\n');
     
-    return pire_dbm_at;
+    if (unidad == 1){
+        return pire_dbm_at;
+    } else {
+        return pireW_at;
+    }
+
 }
 
 function PIRE_MultiBanda (potencias, ganancias){
