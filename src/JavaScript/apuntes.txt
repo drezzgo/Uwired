@@ -16,3 +16,28 @@ Primera parte
 
 Hacer la ecuacion 3 distancia D, para eso se necesita la dinamica de agregar mas bandas
 a una antena cuando esta es multibanda
+
+
+
+/*    
+    Simbologia de los textos
+    
+    - m : menor
+    - M : Mayor
+    - p : PIRE
+    - a : Altura
+    - f : Frecuencia
+
+    Se compone de 3 partes que se repiten a favor de las caracteristicas importantes de los datos:
+
+    Primer parte | Referencia |  -  Segunda parte | Relacion |  -  Tercer parte | Valor |  -  i.. parte (dependiendo de si 
+                                                                                              necesita mayor caracterizacion)
+
+    Ejemplo : |p|m|40|a|m|2| corresponderia a |PIRE| menor que | 40 | altura | mayor que | 2 | 
+*/ 
+
+
+alert("Minima distancia a la antena para publico general : " + DmAPG.toFixed(2) + "metros\n" +
+        "La distancia minima ocupacional : " + DmAOP.toFixed(2) + "metros\n" +
+        "La distancia minima horizontal a la estructura : " + mDHPG.toFixed(2) + " metros\n" +
+        "La distancia minima ocupacional a la estructura : : " + mDHOP.toFixed(2) + " metros")
