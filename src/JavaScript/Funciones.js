@@ -828,3 +828,16 @@ function preguntar_distancia() {
         inputAdicional.appendChild(antenaCercaDiv); // Nombre de la variable corregido
     } 
 }
+
+function recargarPagina() {
+    // Utiliza la función location.reload() para recargar la página
+    location.reload();
+
+    var formulario = document.getElementById('InformacionEstacion');
+
+            // Recorrer todos los campos del formulario
+            for (var i = 0; i < formulario.elements.length; i++) {
+                // Establecer el valor de cada campo en vacío
+                formulario.elements[i].value = '';
+            }
+}
