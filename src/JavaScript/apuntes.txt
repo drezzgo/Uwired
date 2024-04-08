@@ -17,7 +17,28 @@ Primera parte
 Hacer la ecuacion 3 distancia D, para eso se necesita la dinamica de agregar mas bandas
 a una antena cuando esta es multibanda
 
+//Se retorna el valor que requiramos
+    if(tipo == 1){  //retornar distancia minima publico general en horizontal
+        return mDHPG;
+        
+    } else if(tipo == 2){   //retornar distancia minima ocupacional en horizontal
+        return mDHOP;
 
+    }else if(tipo==3){ // Retorna la hipotenusa desde la antena a la cabeza de la persona 
+        
+        return DmAPG;
+        
+    }else {// Retorna la hipotenusa desde la antena a la zona ocupacional 
+        return DmAOP;
+    }
+
+
+            //Downtilt en radianes
+            DwtR= radianes(downtild);
+
+            //Altura en la que debe estar la parte mas baja radiante
+            //de la antena, sino, comparar con la altura ingresada
+            Hb=Math.max(DwtR*Math.tan(DwtR), 3.5);
 
 /*    
     Simbologia de los textos
@@ -41,3 +62,17 @@ alert("Minima distancia a la antena para publico general : " + DmAPG.toFixed(2) 
         "La distancia minima ocupacional : " + DmAOP.toFixed(2) + "metros\n" +
         "La distancia minima horizontal a la estructura : " + mDHPG.toFixed(2) + " metros\n" +
         "La distancia minima ocupacional a la estructura : : " + mDHOP.toFixed(2) + " metros")
+
+
+
+
+
+
+        if (contador == 0){
+            alert( 
+                "Minima distancia a la antena para publico general : " + DmAPG.toFixed(2) + "metros\n" +
+                "La distancia minima ocupacional : " + DmAOP.toFixed(2) + "metros\n" +
+                "La distancia minima horizontal a la estructura publico general: " + mDHPG.toFixed(2) + " metros\n" +
+                "La distancia minima ocupacional a la estructura zona ocupacional : : " + mDHOP.toFixed(2) + " metros")
+        }
+        contador++;

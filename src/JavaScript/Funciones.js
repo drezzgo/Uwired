@@ -1,4 +1,5 @@
 var bandas = 0;
+var contador = 0;
 let ganancia_antenas = [];
 let potencia_antenas = [];
 
@@ -14,185 +15,655 @@ function InspectorMarlon(){
         alert('Por favor, complete todos los campos requeridos.');
         return false;
     } else {
-        MarlonGod();
+        Valorant();
     }
 }
 
-function MarlonGod(){
-
-    var distancia_min_PG;
-    var frecuencia_valor_span;
-    var pire_valor_span;
-    var distancia_min_n;
+function Valorant(){
+    //Datos que brinda el formulario
+    var instalacion = document.getElementById('instalacion').value;
+    var frecuencia = document.getElementById('fr').value; 
     var altura = document.getElementById('Alt').value;
     var alturaCentro = document.getElementById('AltC').value;
-    var instalacion = document.getElementById('instalacion').value;
     var banda_antena = document.getElementById('TipoBandas').value;
     var frecuencia = document.getElementById('fr').value; 
-    var DwtG = document.getElementById('Dwt').value;
+    var Pire_ajena;
+    //declarar variables para labels 
+    var Dmin_span; //DistanciaSpan
+    var Necesita_Medicion; //NecesitaMedicion
+
+    //Variables que usamos para imprimir
+    var distancia_minima_horizontal_PG;
+    var distancia_minima_horizontal_OC;
 
     var pire_antena = PIRE(1);
     var pire_antena_W=PIRE(2);
 
     var alturaCentro_Persona=parseInt(alturaCentro)-2;
-    var conforme;
-    var dPG;
-    var dOP;
+    
+    //Valores que se sacan de una operacion
+    var pire_antena = PIRE(1);
 
-    if (instalacion == "si"){
-
-        if(pire_antena<=40){//PIRE MENOR A 40 dbm
-            if(altura < 2.2){
     
-                pire_valor_span = document.getElementById('pire_valor1');
-                pire_valor_span.textContent = pire_antena;
     
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.Pm40am2').classList.remove('hidden');
-    
-                conforme = false;
-            }else{
-    
-                pire_valor_span = document.getElementById('pire_valor2');
-                pire_valor_span.textContent = pire_antena;
-    
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.Pm40aM2').classList.remove('hidden');
-                conforme = true;
-            }
-            dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-            dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
-            
-        }else if(pire_antena<=50 ){//PIRE MENOR A 50 dbm
-    
-            if(altura < 2.5){
-    
-                pire_valor_span = document.getElementById('pire_valor3');
-                pire_valor_span.textContent = pire_antena;
-    
-                conforme = false;
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.Pm50am25').classList.remove('hidden')
-            }else if(frecuencia<1500){
-                frecuencia_valor_span = document.getElementById('frecuencia_valor1');
-                frecuencia_valor_span.textContent = frecuencia;
-                pire_valor_span = document.getElementById('pire_valor4');
-                pire_valor_span.textContent = pire_antena;
-    
-                distancia_min_PG=2;
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.Pm50aM25fm15').classList.remove('hidden')
-            }else{
-                frecuencia_valor_span = document.getElementById('frecuencia_valor2');
-                frecuencia_valor_span.textContent = frecuencia;
-                pire_valor_span = document.getElementById('pire_valor5');
-                pire_valor_span.textContent = pire_antena;
-    
-                distancia_min_PG=1;
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.Pm50aM25fM15').classList.remove('hidden')
-            }
-    
-            dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-            dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
+    if (instalacion == "si"){ // No importa, se efectua normal
         
-        }else{//PIRE mayor a 50 dbm
-    
-                dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-                dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
+        if(frecuencia > 450){// Si es mayor, es importante dependiendo del PIRE
             
+            if(pire_antena<=40){ // Si es menor o igual a 40 dBm, solo importa su altura
+                ///////////////////////////////////////////////
+                //////////////PIRE MENOR A 40 dbm//////////////
+                //////////////////////////////////////////////
+
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion4');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion4');
+                        distancia_ocupacional4 = document.getElementById('distancias4');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    
+                    if(altura < 2.2){ //Si la altura es menor de 2.2, esta mal
+                        pire_valor_span = document.getElementById('pire_valor1');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40am2').classList.remove('hidden');
+                    
+                    }else{ //Si no es menor, es porque esta bien entonces se evalua
+                        pire_valor_span = document.getElementById('pire_valor2');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40aM2').classList.remove('hidden');
+                        
+                    }
+
+                } else if ( pire_antena <= 50){ // Si es menor a 50 dBm, importa altura y frecuencia
+                    
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion5');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion5');
+                        distancia_ocupacional4 = document.getElementById('distancias5');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+
+                    if(altura < 2.5){ // Si la altura es menor a 2.5, esta mal
+                        pire_valor_span = document.getElementById('pire_valor3');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        conforme = false;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50am25').classList.remove('hidden')
+        
+                    }else if( frecuencia < 1500){// Si es mayor, se evalua si Frec. es menor que 1500 mHz
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor1');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor4');
+                        pire_valor_span.textContent = pire_antena;
+                        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fm15').classList.remove('hidden')
+        
+                    }else{// Si no es menor, es mayor o igual a 1500 mHZ
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor2');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor5');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        distancia_min_PG=1;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fM15').classList.remove('hidden')
+                    }
+                            
+                }else if(pire_antena<=53){ // si es menor a 53 dBm, hasta este punto no es necesario medir
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion6');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion6');
+                        distancia_ocupacional4 = document.getElementById('distancias6');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+
+                    Dmin_span = document.getElementById('Dmin');
+                    Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu53').classList.remove('hidden')
+                    
+                } else { // Al ser mayor a 53dBm, es necesario medir         
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion7');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion7');
+                        distancia_ocupacional4 = document.getElementById('distancias7');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    
+                    Dmin_span = document.getElementById('Dmin');
+                    Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu').classList.remove('hidden')
+                }
+
+        } else {//MENOR a 450
+            
+            //label-> mediciones no son necesarias por baja frecuencia pero igual estan las distincas
+            if(pire_antena<=40){ // Si es menor o igual a 40 dBm, solo importa su altura
+                
+                
+                ///////////////////////////////////////////////
+                //////////////PIRE MENOR A 40 dbm//////////////
+                //////////////////////////////////////////////
+        
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion4');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion4');
+                        distancia_ocupacional4 = document.getElementById('distancias4');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    
+                    
+                    if(altura < 2.2){ //Si la altura es menor de 2.2, esta mal
+                        pire_valor_span = document.getElementById('pire_valor1');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40am2').classList.remove('hidden');
+                    
+                    }else{ //Si no es menor, es porque esta bien entonces se evalua
+                        pire_valor_span = document.getElementById('pire_valor2');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40aM2').classList.remove('hidden');
+                        
+                    }
+
+            } else if ( pire_antena <= 50){ // Si es menor a 50 dBm, importa altura y frecuencia
+                    
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion5');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion5');
+                        distancia_ocupacional4 = document.getElementById('distancias5');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+
+                    if(altura < 2.5){ // Si la altura es menor a 2.5, esta mal
+                        pire_valor_span = document.getElementById('pire_valor3');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        conforme = false;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50am25').classList.remove('hidden')
+        
+                    }else if( frecuencia < 1500){// Si es mayor, se evalua si Frec. es menor que 1500 mHz
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor1');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor4');
+                        pire_valor_span.textContent = pire_antena;
+                        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fm15').classList.remove('hidden')
+        
+                    }else{// Si no es menor, es mayor o igual a 1500 mHZ
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor2');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor5');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        distancia_min_PG=1;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fM15').classList.remove('hidden')
+                    }
+                            
+            }else if(pire_antena<=53){ // si es menor a 53 dBm, hasta este punto no es necesario medir
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion6');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion6');
+                        distancia_ocupacional4 = document.getElementById('distancias6');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    }else{
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                        
+                    }
+                    Dmin_span = document.getElementById('Dmin');
+                    Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu53').classList.remove('hidden')
+                    
+            } else { // Al ser mayor a 53dBm, es necesario medir         
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion7');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion7');
+                        distancia_ocupacional4 = document.getElementById('distancias7');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    Dmin_span = document.getElementById('Dmin');
+                    Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+                    
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu').classList.remove('hidden')
+                }
         }
 
-    } else {
+    } else { //Importa saber, si hay antenas
 
-        var existe_antena = document.getElementById("antena_cerca").value;
-        if (existe_antena == "no"){
-
-            if(pire_antena<=40){//PIRE MENOR A 40 dbm
-                if(altura < 2.2){
+        var existe_antena = document.getElementById("antena_cerca").value; 
+        if(existe_antena=="no"){ //Si no hay antenas es lo mismo que si ya estuviera instalada, no importa
         
+            if(pire_antena<=40){ // Si es menor o igual a 40 dBm, solo importa su altura
+                ///////////////////////////////////////////////
+                //////////////PIRE MENOR A 40 dbm//////////////
+                //////////////////////////////////////////////
+        
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion4');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion4');
+                        distancia_ocupacional4 = document.getElementById('distancias4');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    
+                    if(altura < 2.2){ //Si la altura es menor de 2.2, esta mal
+                        pire_valor_span = document.getElementById('pire_valor1');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40am2').classList.remove('hidden');
+                    
+                    }else{ //Si no es menor, es porque esta bien entonces se evalua
+                        pire_valor_span = document.getElementById('pire_valor2');
+                        pire_valor_span.textContent = pire_antena;
+        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm40aM2').classList.remove('hidden');
+                        
+                    }
+
+                } else if ( pire_antena <= 50){ // Si es menor a 50 dBm, importa altura y frecuencia
+                    
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion5');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion5');
+                        distancia_ocupacional4 = document.getElementById('distancias5');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+
+                    if(altura < 2.5){ // Si la altura es menor a 2.5, esta mal
+                        pire_valor_span = document.getElementById('pire_valor3');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        conforme = false;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50am25').classList.remove('hidden')
+        
+                    }else if( frecuencia < 1500){// Si es mayor, se evalua si Frec. es menor que 1500 mHz
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor1');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor4');
+                        pire_valor_span.textContent = pire_antena;
+                        
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fm15').classList.remove('hidden')
+        
+                    }else{// Si no es menor, es mayor o igual a 1500 mHZ
+                        frecuencia_valor_span = document.getElementById('frecuencia_valor2');
+                        frecuencia_valor_span.textContent = frecuencia;
+                        pire_valor_span = document.getElementById('pire_valor5');
+                        pire_valor_span.textContent = pire_antena;
+            
+                        distancia_min_PG=1;
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.Pm50aM25fM15').classList.remove('hidden')
+                    }
+                            
+                }else if(pire_antena<=53){ // si es menor a 53 dBm, hasta este punto no es necesario medir
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion6');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion6');
+                        distancia_ocupacional4 = document.getElementById('distancias6');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    Dmin_span = document.getElementById('Dmin');
+                    Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu53').classList.remove('hidden')
+                    
+                } else { // Al ser mayor a 53dBm, es necesario medir         
+                    distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                    distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                    if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                        "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                        "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion4 = document.getElementById('necesita_medicion7');
+                        Necesita_senalizacion4 = document.getElementById('necesita_senalizacion7');
+                        distancia_ocupacional4 = document.getElementById('distancias7');
+
+                        Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+                    
+                    Dmin_span = document.getElementById('Dmin');
+                   
+                    
+                    if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_PG > 0){
+                        Dmin_span.textContent = distancia_minima_horizontal_PG.toFixed(2);
+                        
+                    } else {
+                        Dmin_span.textContent = "Menor a 0 ";
+                    }
+
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.PM50TAu').classList.remove('hidden')
+                }
+            
+        } else { //Depende el PIRE es importante saber o no, las otras antenas
+            var antenajena_watts = document.getElementById("pire_antenajena_w").value;
+            var antenajena_metros = document.getElementById("distancia_antena").value;
+            var antenajena_frecuencia = document.getElementById("frecuencia_antenajena").value;
+            distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                //Falta hacer a Label pire menor a 50, vale verga
+            if(pire_antena <= 50 && pire_antena>40){
+                
+                if(antenajena_watts>10){ // Si el PIRE es mayor a 10 W importa que la distancia sea mayor a 10 m
+
+                        respuesta = document.getElementById('respuesta');
+                        Necesita_Medicion=document.getElementById('necesita_medicion2');
+                        Necesita_senalizacion=document.getElementById('necesita_senalizacion2"');
+                        distancia_ocupacional = document.getElementById('distancias');
+
+                    if(antenajena_metros > 10 &&  antenajena_frecuencia < 1500){ //Se puede instalar
+                        respuesta.textContent = "la resolucion establece que las antenas cercanas si son menores de 1500 mHz pueden estar a un maximo de 10 metros desde la base de la estructura"
+                        //Falta hacer label de todo bien, se puede instalar porque :
+                                
+                        if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_OC > 0){
+                            Necesita_Medicion.textContent="Requiere de hacer mediciones";
+                            Necesita_senalizacion.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                            distancia_ocupacional.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                            
+                        } else {
+                            Necesita_Medicion.textContent="No requiere de hacer medicion";
+                            Necesita_senalizacion.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                            
+                        }
+
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.antejanena_sepuede').classList.remove('hidden')
+
+                    } else if(antenajena_metros > 5 &&  antenajena_frecuencia > 1500){ // se puede instalar pero a 5 metros
+                        respuesta.textContent = "la resolucion establece que las antenas cercanas si son mayores de 1500 mHz pueden estar a un maximo de 5 metros desde la base de la estructura"
+                                
+                        if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_OC > 0){
+                            alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                             "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                             "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                            Necesita_Medicion.textContent="Requiere de hacer mediciones";
+                            Necesita_senalizacion.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                            distancia_ocupacional.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                            
+                        } else {
+                            Necesita_Medicion.textContent="No requiere de hacer medicion";
+                            Necesita_senalizacion.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                        }
+
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.antejanena_sepuede').classList.remove('hidden')
+
+                    } else { //No se puede instalar pa, te falta 
+                        Necesita_Medicion3 = document.getElementById('necesita_medicion3');
+                        Necesita_senalizacion3 = document.getElementById('necesita_senalizacion3');
+                        distancia_ocupacional3 = document.getElementById('distancias3');
+                        Pire_ajena=document.getElementById('PIRE_AJENA');
+                        Pire_ajena.textContent=antenajena_watts;
+                        distanciaM_100= document.getElementById('DISTANCIA_100');
+                        distanciaM_100.textContent=distancia_minima_horizontal_PG;
+                                
+                        if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_OC > 0){
+                            alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                             "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                             "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                            Necesita_Medicion3.textContent="Requiere de hacer mediciones";
+                            Necesita_senalizacion3.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                            distancia_ocupacional3.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                            
+                        } else {
+                            Necesita_Medicion3.textContent="No requiere de hacer medicion";
+                            Necesita_senalizacion3.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                        }
+
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.antenajena_nosepuede').classList.remove('hidden')
+                    }                   
+                }
+                                
+            }else if(pire_antena>50) { //Si es mayor a 50, 
+
+                if(antenajena_watts>100 && (antenajena_metros<=distancia_minima_horizontal_PG)){
+                    
+                    Necesita_Medicion3 = document.getElementById('necesita_medicion3');
+                    Necesita_senalizacion3 = document.getElementById('necesita_senalizacion3');
+                    distancia_ocupacional3 = document.getElementById('distancias3');
+                    Pire_ajena=document.getElementById('PIRE_AJENA');
+                    Pire_ajena.textContent=antenajena_watts;
+                    distanciaM_100= document.getElementById('DISTANCIA_100');
+                    distanciaM_100.textContent=distancia_minima_horizontal_PG;
+
+                            
+                    if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_OC > 0){
+                        alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                             "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                             "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                        Necesita_Medicion3.textContent="Requiere de hacer mediciones";
+                        Necesita_senalizacion3.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                        distancia_ocupacional3.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                        
+                    } else {
+                        Necesita_Medicion3.textContent="No requiere de hacer medicion";
+                        Necesita_senalizacion3.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                    }
+
+                    document.querySelector('.logo').style.display = 'none';
+                    document.querySelector('.antenajena_nosepuede').classList.remove('hidden')
+                    
+
+                }else{//si se puede poner 
+
+                    respuesta.textContent = "la resolucion establece que las antenas cercanas si tienen un pire pueden estar a un maximo de 5 metros desde la base de la estructura"
+                                
+                        if (distancia_minima_horizontal_PG >0 || distancia_minima_horizontal_OC > 0){
+                            alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n" +
+                             "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n" +  
+                             "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                            Necesita_Medicion.textContent="Requiere de hacer mediciones";
+                            Necesita_senalizacion.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                            distancia_ocupacional.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                            
+                        } else {
+                            Necesita_Medicion.textContent="No requiere de hacer medicion";
+                            Necesita_senalizacion.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                        }
+
+                        document.querySelector('.logo').style.display = 'none';
+                        document.querySelector('.antejanena_sepuede').classList.remove('hidden')
+                }
+
+            } else { // HECHO - Si llega aqui, es porque es menor a 40
+                distancia_minima_horizontal_PG = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 1); //Imprimir la distancia
+                distancia_minima_horizontal_OC = determinar_dm(banda_antena, frecuencia, alturaCentro_Persona, pire_antena_W, 2); //Imprimir la distancia
+                if (distancia_minima_horizontal_PG > 0 || distancia_minima_horizontal_OC > 0){
+                    alert("La distancia minima horizontal a la estructura publico general : " + distancia_minima_horizontal_PG.toFixed(2) + " m\n\n" +
+                    "La distancia minima horizontal ocupacional a la estructura : " + distancia_minima_horizontal_OC.toFixed(2) + " m\n\n" +  
+                    "Por lo tanto en esa distancia apartir de la estructura de la antena se debe señalizar los respectivos limites se debe señalizar" );
+                    Necesita_Medicion4 = document.getElementById('necesita_medicion4');
+                    Necesita_senalizacion4 = document.getElementById('necesita_senalizacion4');
+                    distancia_ocupacional4 = document.getElementById('distancias4');
+
+                    Necesita_Medicion4.textContent="Requiere de hacer mediciones";
+                    Necesita_senalizacion4.textContent = "Requiere de establecer una señalizacion correspondiente a la distancia minima poblacional y ocupacional"
+                    distancia_ocupacional4.textContent = "La distancia ocupacional corresponderia a " + distancia_minima_horizontal_OC.toFixed(2) + " metros, para publico general corresponde a " + distancia_minima_horizontal_PG.toFixed(2) + " metros";
+                    
+                } else {
+                    Necesita_Medicion4.textContent="No requiere de hacer medicion";
+                    Necesita_senalizacion4.textContent = "No equiere de establecer una señalizacion correspondiente a la distancia minima poblacional ni ocupacional"
+                }
+                
+                if(altura < 2.2){ //Si la altura es menor de 2.2, esta mal
                     pire_valor_span = document.getElementById('pire_valor1');
                     pire_valor_span.textContent = pire_antena;
-        
+    
                     document.querySelector('.logo').style.display = 'none';
                     document.querySelector('.Pm40am2').classList.remove('hidden');
-        
-                    conforme = false;
-                }else{
-        
+                
+                }else{ //Si no es menor, es porque esta bien entonces se evalua
                     pire_valor_span = document.getElementById('pire_valor2');
                     pire_valor_span.textContent = pire_antena;
-        
+    
                     document.querySelector('.logo').style.display = 'none';
                     document.querySelector('.Pm40aM2').classList.remove('hidden');
-                    conforme = true;
+                    
                 }
-                dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-                dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
-                
-            }else if(pire_antena<=50 ){//PIRE MENOR A 50 dbm
-        
-                if(altura < 2.5){
-        
-                    pire_valor_span = document.getElementById('pire_valor3');
-                    pire_valor_span.textContent = pire_antena;
-        
-                    conforme = false;
-                    document.querySelector('.logo').style.display = 'none';
-                    document.querySelector('.Pm50am25').classList.remove('hidden')
-                }else if(frecuencia<1500){
-                    frecuencia_valor_span = document.getElementById('frecuencia_valor1');
-                    frecuencia_valor_span.textContent = frecuencia;
-                    pire_valor_span = document.getElementById('pire_valor4');
-                    pire_valor_span.textContent = pire_antena;
-        
-                    distancia_min_PG=2;
-                    document.querySelector('.logo').style.display = 'none';
-                    document.querySelector('.Pm50aM25fm15').classList.remove('hidden')
-                }else{
-                    frecuencia_valor_span = document.getElementById('frecuencia_valor2');
-                    frecuencia_valor_span.textContent = frecuencia;
-                    pire_valor_span = document.getElementById('pire_valor5');
-                    pire_valor_span.textContent = pire_antena;
-        
-                    distancia_min_PG=1;
-                    document.querySelector('.logo').style.display = 'none';
-                    document.querySelector('.Pm50aM25fM15').classList.remove('hidden')
-                }
-        
-                dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-                dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
-            
-            }else{//PIRE mayor a 50 dbm
-        
-                    dPG=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,1);
-                    dOP=determinar_dm(banda_antena,frecuencia,alturaCentro_Persona,DwtG,pire_antena_W,2);
-                
             }
-    
-        } else {
-            var antena_watts = document.getElementById("pire_antenajena_w").value;
-            var antena_metros = document.getElementById("distancia_antena").value;
-            if (antena_watts > 10 && frecuencia < 1500 && antena_metros > 10 && pire_antena >= 40) { //Esta bien, se puede poner
-                document.querySelector('.logo').style.display = 'none';
-                document.querySelector('.se_puede_10m').classList.remove('hidden');
-            } else if (antena_watts > 10 && frecuencia >= 1500 && antena_metros > 5){ //Esta bien, se puede poner
-                
-            } else if (antena_watts > 10 && antena_metros > 2){ //Esta bien, se puede poner
-
-            } else { //No se puede poner
-
-            }
-        }
+        }   
     }
 }
 
-function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona, downtild,pire_antena_W,tipo){
+function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona,pire_antena_W, tipo ){
 
     // var distancia_min_PG;
     var s;
-    var Hb;
-    var DwtR;
     var DmAPG;
     var DmAOP;
     var mDHPG;
@@ -200,7 +671,7 @@ function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona, downtild,pi
 
     if(tipo_banda=="Unica"){
 
-        if(pire_antena_W>100){
+        
 
             
             if(frecuencia>=0.1 && frecuencia <=30){
@@ -218,20 +689,8 @@ function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona, downtild,pi
             //distancia delimita zona al publico general - cambiar a Watts
             mDHPG= Math.sqrt((pire_antena_W/(4*Math.PI*s)));
             mDHOP=0;
-            //ire_valor_span = document.getElementById('D');
 
-            //Downtilt en radianes
-            DwtR= radianes(downtild);
-
-            //Altura en la que debe estar la parte mas baja radiante
-            //de la antena, sino, comparar con la altura ingresada
-            Hb=Math.max(DwtR*Math.tan(DwtR), 3.5);
-
-            alert("Minima distancia a la antena para publico general : " + mDHPG.toFixed(2) + "metros\n")
-            
-            ///////////////////////////////////////////////////////////////
-
-        }
+        
 
     }else if(tipo_banda=="DiferenteIMT"){
         if(frecuencia>=30 && frecuencia<400){
@@ -252,22 +711,14 @@ function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona, downtild,pi
         
         mDHPG=Math.sqrt((Math.pow(DmAPG,2))-(Math.pow(alturaCentro_Persona,2)));
         mDHOP=Math.sqrt( (Math.pow(DmAOP,2))-(Math.pow(alturaCentro_Persona,2)));
-        
     }
 
-    if(tipo == 1){  //retornar distancia minima publico general
-        alert( 
-        "Minima distancia a la antena para publico general : " + DmAPG.toFixed(2) + "metros\n" +
-        "La distancia minima ocupacional : " + DmAOP.toFixed(2) + "metros\n" +
-        "La distancia minima horizontal a la estructura : " + mDHPG.toFixed(2) + " metros\n" +
-        "La distancia minima ocupacional a la estructura : : " + mDHOP.toFixed(2) + " metros")
-          
-        return mDHPG;        
-
-    } else if(tipo == 2){   //retornar distancia minima ocupacional
+    if(tipo == 1){  //retornar distancia minima publico general en horizontal
+        return mDHPG;
         
+    } else if(tipo == 2){   //retornar distancia minima ocupacional en horizontal
         return mDHOP;
-        
+
     }
 }
 
@@ -370,6 +821,9 @@ function preguntar_distancia() {
 
             <label class="mx-5" for="pire_antenajena_w">PIRE : </label>
             <input type="number" class="form-control w-28" id="pire_antenajena_w" name="pire_antenajena_w" placeholder="Watts" />
+
+            <label class="mx-5" for="frecuencia_antenajena">Frecuencia : </label>
+            <input type="number" class="form-control w-28" id="frecuencia_antenajena" name="frecuencia_antenajena" placeholder="mHz" />
         `;
         inputAdicional.appendChild(antenaCercaDiv); // Nombre de la variable corregido
     } 
