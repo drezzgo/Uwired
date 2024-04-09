@@ -40,6 +40,8 @@ function Valorant(){
     var pire_antena_W=PIRE(2);
 
     var alturaCentro_Persona=parseInt(alturaCentro)-2;
+    var alturaCentro_Persona_span = document.getElementById("altura");
+    alturaCentro_Persona_span.textContent = alturaCentro_Persona + " metros.";
     
     //Valores que se sacan de una operacion
     var pire_antena = PIRE(1);
@@ -669,48 +671,95 @@ function determinar_dm(tipo_banda, frecuencia, alturaCentro_Persona,pire_antena_
     var mDHPG;
     var mDHOP;
 
+    //Variables de Gráfico en Bandas Diferentes a IMT
+    var rAPG_span = document.getElementById("rAPG");
+    var rAOP_span = document.getElementById("rAOP");
+
+    var mDHPG_span = document.getElementById("mDHPG");
+    var mDHOP_span = document.getElementById("mDHOP");
+
+    var mDHPG_BU_span = document.getElementById("mDHPG_unica");
+
+    var rAPG;
+    var rAOP;
+
     if(tipo_banda=="Unica"){
 
+        ocultarGrafico();
+        mostrarBU();
         
+        if(frecuencia>=0.1 && frecuencia <=30){
+            s=1;
 
-            
-            if(frecuencia>=0.1 && frecuencia <=30){
-                s=1;
+        }else if(frecuencia>30 && frecuencia <=400){
+            s=2;
 
-            }else if(frecuencia>30 && frecuencia <=400){
-                s=2;
+        }else if(frecuencia>400 && frecuencia <=2000){
+            s=frecuencia/200;
 
-            }else if(frecuencia>400 && frecuencia <=2000){
-                s=frecuencia/200;
+        }else if(frecuencia>2000 && frecuencia <=300000){
+            s= 10;
+        }
+        //distancia delimita zona al publico general - cambiar a Watts
+        mDHPG= Math.sqrt((pire_antena_W/(4*Math.PI*s)));
+        mDHOP=0;
 
-            }else if(frecuencia>2000 && frecuencia <=300000){
-                s= 10;
-            }
-            //distancia delimita zona al publico general - cambiar a Watts
-            mDHPG= Math.sqrt((pire_antena_W/(4*Math.PI*s)));
-            mDHOP=0;
+        rAPG = mDHPG;
 
-        
+        if(isNaN(mDHPG)) {
+            mDHPG_BU_span.textContent = "No presenta distancia mínima.";
+        } else {
+            mDHPG_BU_span.textContent = mDHPG.toFixed(2)  + " metros.";
+        }
 
     }else if(tipo_banda=="DiferenteIMT"){
+        ocultarBU();
+        mostrarGrafico();
+
         if(frecuencia>=30 && frecuencia<400){
 
             DmAPG=0.319*Math.sqrt(pire_antena_W);///ESTA    
             DmAOP=0.143*Math.sqrt(pire_antena_W);
+
+            rAPG = DmAPG;
+            rAOP = DmAOP;
+
+            rAPG_span.textContent = rAPG.toFixed(2)  + " metros.";
+            rAOP_span.textContent = rAOP.toFixed(2)  + " metros.";
 
         }else if(frecuencia>=400 && frecuencia<2000){
 
             DmAPG=6.38*Math.sqrt(pire_antena_W/frecuencia);
             DmAOP=2.92*Math.sqrt(pire_antena_W/frecuencia);
 
+            rAPG = DmAPG;
+            rAOP = DmAOP;
+
+            rAPG_span.textContent = rAPG.toFixed(2) + " metros.";
+            rAOP_span.textContent = rAOP.toFixed(2)  + " metros.";
+
         }else if(frecuencia>=2000 && frecuencia<300000){
 
             DmAPG=0.143*Math.sqrt(pire_antena_W);
             DmAOP=0.0638*Math.sqrt(pire_antena_W);
+
+            rAPG = DmAPG;
+            rAOP = DmAOP;
+
+            rAPG_span.textContent = rAPG.toFixed(2)  + " metros.";
+            rAOP_span.textContent = rAOP.toFixed(2)  + " metros.";
         }
         
         mDHPG=Math.sqrt((Math.pow(DmAPG,2))-(Math.pow(alturaCentro_Persona,2)));
         mDHOP=Math.sqrt( (Math.pow(DmAOP,2))-(Math.pow(alturaCentro_Persona,2)));
+
+        if(isNaN(mDHPG)) {
+            mDHPG_span.textContent = "No presenta distancia mínima.";
+            mDHOP_span.textContent = "No presenta distancia mínima.";
+        } else {
+            mDHPG_span.textContent = mDHPG.toFixed(2)  + " metros.";
+            mDHOP_span.textContent = mDHOP.toFixed(2)  + " metros.";
+        }
     }
 
     if(tipo == 1){  //retornar distancia minima publico general en horizontal
@@ -840,4 +889,20 @@ function recargarPagina() {
                 // Establecer el valor de cada campo en vacío
                 formulario.elements[i].value = '';
             }
+}
+
+function mostrarGrafico() {
+    document.getElementById('grafico').style.display = 'block';
+}
+
+function ocultarGrafico() {
+    document.getElementById('grafico').style.display = 'none';
+}
+
+function mostrarBU() {
+    document.getElementById('banda_unica').style.display = 'block';
+}
+
+function ocultarBU() {
+    document.getElementById('banda_unica').style.display = 'none';
 }

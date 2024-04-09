@@ -1,4 +1,55 @@
-<div style="margin-top: 20px;">
-    <canvas id="myChart" width="400" height="400"></canvas>
+<section id="resultados" class="mx-44 mt-8 text-dark">
+  <div id="banda_unica" class="flex justify-center items-center" style="display: none;" >
+    <h2 class="text-3xl font-bold text-primary">Distancia para Banda Única</h2>
+    <ul class="list-disc mt-4 text-xl ml-4">
+      <li>
+        <span class="font-bold">Distancia mínima horizontal para público general: </span><span id="mDHPG_unica"></span>
+      </li>
+    </ul>
   </div>
+
+  <div id="grafico" style="display: none;">
+    <h2 class="text-3xl font-bold text-primary">Gráfico de Distancias</h2>
+    <p class="mt-4 text-xl">
+        En donde:<br>
+    </p>
+    <ul class="list-disc mt-4 text-xl ml-4">
+        <li>
+            <span class="font-bold">d: </span>es la mínima distancia horizontal a la estructura de soporte 
+            de la antena o sistema irradiante, en metros.
+        </li>
+        <li>
+            <span class="font-bold">r: </span>es la mínima distancia a la antena o sistema irradiante, en metros.
+        </li>
+        <li>
+            <span class="font-bold">a: </span>es la distancia vertical desde la altura de una persona a la antena 
+            o sistema irradiante. Esta se calcula como la "altura del centro de radiación - altura de una persona",
+            con el ánimo de estandarizar, se establece el cálculo de "a" como "altura del centro de radiación - 2 metros".
+        </li>
+    </ul>
+    <div class="flex justify-center items-center">
+        <img src="../../public/Grafico_antena.png" alt="Gráfico de Antena" height="650px" width="650px" class="">
+    </div>
+    <div id="valoresGra" class="flex justify-center items-center">
+      <ul class="list-disc mt-4 text-xl ml-4">
+        <li>
+            <span class="font-bold">Distancia mínima de r para público general: </span><span id="rAPG"></span>
+        </li>
+        <li>
+          <span class="font-bold">Distancia mínima de r para personal ocupacional: </span><span id="rAOP"></span>
+        </li>
+        <li>
+          <span class="font-bold">Distancia vertical desde una persona al sistema irradiante: </span><span id="altura"></span>
+        </li>
+        <li>
+            <span class="font-bold">Distancia mínima horizontal para público general: </span><span id="mDHPG"></span>
+        </li>
+        <li>
+          <span class="font-bold">Distancia mínima horizontal para personal ocupacional: </span><span id="mDHOP"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br><br>
+</section>
   
