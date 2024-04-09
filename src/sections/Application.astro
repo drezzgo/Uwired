@@ -166,7 +166,8 @@ import Logo from "../components/HeroLogo.astro"
       <Logo class="w-[750px] animate-pop">
     </div>
    
-    <!-- < 40 dBm - Hecho -->
+    <!-- CUANDO ESTA INSTALADA O CUANDO NO ESTA, PERO NO HAY ANTENAS CERCA -->
+    <!-- MENOR A 40 dBm -->
     <div class="Pm40am2 hidden">
       <div class=" animate-fade-in text-xl text-justify">
       <p>
@@ -192,9 +193,9 @@ import Logo from "../components/HeroLogo.astro"
 
       </p> 
       <ol>
-        <ul>1 - <span id="necesita_medicion4"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion4"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias4"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion1"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion1"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias1"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
@@ -215,7 +216,7 @@ import Logo from "../components/HeroLogo.astro"
         este requisito para garantizar el correcto funcionamiento y la seguridad del sistema de transmisión.<br><br>
 
         En cuanto al <span class="font-bold">PIRE</span> (Potencia Isotrópica Radiada Equivalente) de la antena, se 
-        identifica que el valor es de <span id="pire_valor2"></span> dBm. Este parámetro es esencial para determinar el 
+        identifica que el valor es de <span id="pire_valor1_2"></span> dBm. Este parámetro es esencial para determinar el 
         alcance y la eficiencia de la transmisión de la antena. <br><br>
 
         Sin embargo, es importante destacar que, dado que tanto la distancia mínima para el público en general como 
@@ -223,14 +224,14 @@ import Logo from "../components/HeroLogo.astro"
 
       </p>
       <ol>
-        <ul>1 - <span id="necesita_medicion4"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion4"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias4"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion1_2"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion1_2"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias1_2"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
-    
-    <!-- < 50 dBm - Falta -->
+
+    <!-- MENOR A 50 dBm -->
     <div class="Pm50am25 hidden">
       <div class=" animate-fade-in text-xl">
       <p>
@@ -257,9 +258,9 @@ import Logo from "../components/HeroLogo.astro"
 
       </p> 
       <ol>
-        <ul>1 - <span id="necesita_medicion5"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion5"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias5"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion2"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion2"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias2"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
@@ -290,9 +291,9 @@ import Logo from "../components/HeroLogo.astro"
         </p> 
       <br><br>
       <ol>
-        <ul>1 - <span id="necesita_medicion5"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion5"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias5"></span></ul>
+        <ul>1 - <span id="necesita_medicion2_1"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion2_1"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias2_1"></span></ul>
       </ol>
       </div>
     </div>
@@ -324,37 +325,14 @@ import Logo from "../components/HeroLogo.astro"
         </p> 
       <br><br>
       <ol>
-        <ul>1 - <span id="necesita_medicion5"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion5"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias5"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion2_2"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion2_2"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias2_2"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
 
-    <div class="PM50TAu hidden">
-      <div class=" animate-fade-in text-xl">
-        <p>
-
-          Teniendo en cuenta las especificaciones de la antena (Potencia, Ganancia, Frecuencia y Tipo de banda) y basandonos en la ecuacion 2 descrita en 
-          la resolución 773 de la ANE se realizó el calculo de la distancia minima a zonas accesibles al publico en general.<br><br>
-
-          La distancia minima a zonas accesibles al publico general equivaldria a <span id="Dmin"></span> metros. Este parámetro es esencial para determinar el 
-          alcance y la eficiencia de la transmisión de la antena. <br><br>
-
-          Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
-          (<span id="frecuencia_valor3" class="italic"></span> mHz) al ser mayor que 1500 mHz la resolucion dictamina que 
-          tanto la distancia mínima para el público en general como la distancia mínima ocupacional son inferiores a 0, 
-          según lo establecido en la resolución : <br><br>
-
-        </p>
-      <ol>
-        <ul>1 - <span id="necesita_medicion7"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion7"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias7"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
-      </ol>
-      </div>
-    </div>
-
+    <!-- MENOR A 53 dBm -->
     <div class="PM50TAu53 hidden">
       <div class=" animate-fade-in text-xl">
         <p>
@@ -372,16 +350,42 @@ import Logo from "../components/HeroLogo.astro"
 
         </p>
       <ol>
-        <ul>1 - <span id="necesita_medicion6"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion6"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias6"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion3"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion3"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias3"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
 
-    <!-- > 50 dBm - Hecho -->
-    
-    <!-- < No esta instalado, pero si hay antenas cerca -->
+    <!-- MAYOR A 53 dBm -->
+    <div class="PM50TAu hidden">
+      <div class=" animate-fade-in text-xl">
+        <p>
+
+          Teniendo en cuenta las especificaciones de la antena (Potencia, Ganancia, Frecuencia y Tipo de banda) y basandonos en la ecuacion 2 descrita en 
+          la resolución 773 de la ANE se realizó el calculo de la distancia minima a zonas accesibles al publico en general.<br><br>
+
+          La distancia minima a zonas accesibles al publico general equivaldria a <span id="Dmin"></span> metros. Este parámetro es esencial para determinar el 
+          alcance y la eficiencia de la transmisión de la antena. <br><br>
+
+          Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
+          (<span id="frecuencia_valor3" class="italic"></span> mHz) al ser mayor que 1500 mHz la resolucion dictamina que 
+          tanto la distancia mínima para el público en general como la distancia mínima ocupacional son inferiores a 0, 
+          según lo establecido en la resolución : <br><br>
+
+        </p>
+      <ol>
+        <ul>1 - <span id="necesita_medicion4"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion4"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias4"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+<!-- /////////////////////////////////////////////////////////////////// -->
+
+    <!-- CUANDO NO ESTA INSTALADA, PERO HAY ANTENAS CERCA -->
+    <!-- ENTRE 40 dBm & 50 dBm-->
+    <!-- SE PUEDE -->
     <div class="se_puede_10m hidden">
       <div class=" animate-fade-in text-xl">
       <p>
@@ -402,8 +406,7 @@ import Logo from "../components/HeroLogo.astro"
       <br><br>
   
       </div>
-    </div>
-    
+    </div> 
     <div class="antenajena_sepuede hidden">
       <div class=" animate-fade-in text-xl">
         <p>
@@ -424,17 +427,48 @@ import Logo from "../components/HeroLogo.astro"
           alcance y la eficiencia de la transmisión de la antena. <br><br>
 
           Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
-          <span id="respuesta" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
+          <span id="respuesta5" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
 
         </p> 
       <ol>
-        <ul>1 - <span id="necesita_medicion2"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion2"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion5"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion5"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias5"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
+    <div class="antenajena_sepuede_5m hidden">
+      <div class=" animate-fade-in text-xl">
+        <p>
 
+          La antena puede ser instalada pues dentro de las características provistas, la antena alcanza la altura mínima requerida para el sistema 
+          irradiante, según lo establecido en la <span class="text-primary">Tabla 2 - Procedimiento de evaluacion 
+          clasificada de cumplimiento de los niveles de exposicion (Pagina 20)</span> teniendo en cuenta lo que dictamina la 
+          resolucion en cuyos casos cerca del sitio haya antenas cuyo <span class="font-bold">PIRE</span> sea mayores a <span class="font-bold">40 dBm</span>.<br><br>
+          
+          Ver el inciso 3 para PIRE mayor a 40 dBm el apartado 2 o el inciso 3 para PIRE mayor a 50 dBm. Esta tabla es un referente técnico crucial que establece los parámetros que deben cumplir las antenas para garantizar la seguridad 
+          y el cumplimiento normativo, tener en cuenta hacer las respectivas mediciones desde el punto que se quiere instalar a las antenas mas cercas (si es que estas
+          no estan mas alla de 12 metros para contrastar con la informacion de la resolucion)<br><br>
+
+          Recuerda que debe tener un <span class="font-bold">minimo de 2.5 metros</span> desde el nivel del suelo. Es fundamental cumplir con 
+          este requisito para garantizar el correcto funcionamiento y la seguridad del sistema de transmisión.<br><br>
+
+          En cuanto al (Potencia Isotrópica Radiada Equivalente) de la antena recordar que este parámetro es esencial para determinar el 
+          alcance y la eficiencia de la transmisión de la antena. <br><br>
+
+          Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
+          <span id="respuesta6" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
+
+        </p> 
+      <ol>
+        <ul>1 - <span id="necesita_medicion6"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion6"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias6"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+    
+    <!-- NO SE PUEDE -->
     <div class="antenajena_nosepuede hidden">
       <div class=" animate-fade-in text-xl">
         <p>
@@ -454,16 +488,83 @@ import Logo from "../components/HeroLogo.astro"
           alcance y la eficiencia de la transmisión de la antena. <br><br>
 
           Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
-          <span id="respuesta3" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
+          <span id="respuesta7" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
 
         </p> 
       <ol>
-        <ul>1 - <span id="necesita_medicion3"></span></ul> <!-- Medicion -->
-        <ul>2 - <span id="necesita_senalizacion3"></span></ul> <!-- Señalizacion -->
-        <ul>3 - <span id="distancias3"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+        <ul>1 - <span id="necesita_medicion7"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion7"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias7"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
       </ol>
       </div>
     </div>
+
+    
+    <!-- MAYOR A 50 dBm -->
+
+    <!-- NO SE PUEDE -->
+    <div class="antenajena_nosepuede_M50 hidden">
+      <div class=" animate-fade-in text-xl">
+        <p>
+
+          La antena no puede ser instalada pues dentro de las especificaciones dadas en la <span class="text-primary">Tabla 2 - Procedimiento de evaluacion 
+          clasificada de cumplimiento de los niveles de exposicion (Pagina 20)</span> teniendo en cuenta lo que dictamina la 
+          resolucion, en cuyos casos cerca del sitio haya antenas cuyo <span class="font-bold">PIRE</span> sea mayores a <span id="PIRE_AJENA1"></span>.<br><br>
+
+          * Si el pire de la antena ajena es mayor a 10(W) y tiene frecuencias menores a 1500MHz, no se podra instalar la estacion de radiofrecuencia a menos de 10 metros de distancia<br><br>
+          * Si el pire de la antena ajena es mayor a 10(W) y tiene frecuencias mayores a 1500MHz, no se podra instalar la estacion de radiofrecuencia a menos de 5 metros de distancia<br><br>
+          * Si el pire de la antena ajena es mayor a 100(W) no se podra instalar la estacion de radiofrecuencia a menos de <span id="DISTANCIA_100_1"></span> metros
+
+          Recuerda que debe tener un <span class="font-bold">minimo de 2.5 metros</span> desde el nivel del suelo. Es fundamental cumplir con 
+          este requisito para garantizar el correcto funcionamiento y la seguridad del sistema de transmisión.<br><br>
+
+          En cuanto al (Potencia Isotrópica Radiada Equivalente) de la antena recordar que este parámetro es esencial para determinar el 
+          alcance y la eficiencia de la transmisión de la antena. <br><br>
+
+          Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
+          <span id="respuesta8" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
+
+        </p> 
+      <ol>
+        <ul>1 - <span id="necesita_medicion8"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion8"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias8"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+
+    <!-- SE PUEDE -->
+    <div class="antenajena_sepuede_M50 hidden">
+      <div class=" animate-fade-in text-xl">
+        <p>
+
+          La antena puede ser instalada pues dentro de las características provistas, la antena alcanza la altura mínima requerida para el sistema 
+          irradiante, según lo establecido en la <span class="text-primary">Tabla 2 - Procedimiento de evaluacion 
+          clasificada de cumplimiento de los niveles de exposicion (Pagina 20)</span> teniendo en cuenta lo que dictamina la 
+          resolucion en cuyos casos cerca del sitio haya antenas cuyo <span class="font-bold">PIRE</span> sea mayores a <span class="font-bold">40 dBm</span>.<br><br>
+          
+          Ver el inciso 3 para PIRE mayor a 40 dBm el apartado 2 o el inciso 3 para PIRE mayor a 50 dBm. Esta tabla es un referente técnico crucial que establece los parámetros que deben cumplir las antenas para garantizar la seguridad 
+          y el cumplimiento normativo, tener en cuenta hacer las respectivas mediciones desde el punto que se quiere instalar a las antenas mas cercas (si es que estas
+          no estan mas alla de 12 metros para contrastar con la informacion de la resolucion)<br><br>
+
+          Recuerda que debe tener un <span class="font-bold">minimo de 2.5 metros</span> desde el nivel del suelo. Es fundamental cumplir con 
+          este requisito para garantizar el correcto funcionamiento y la seguridad del sistema de transmisión.<br><br>
+
+          En cuanto al (Potencia Isotrópica Radiada Equivalente) de la antena recordar que este parámetro es esencial para determinar el 
+          alcance y la eficiencia de la transmisión de la antena. <br><br>
+
+          Sin embargo es importante destacar que por la frecuencia de transmision de la antena 
+          <span id="respuesta9" class="italic"></span> en los requerimientos mas importantes de la resolucion tu antena :<br><br>
+
+        </p> 
+      <ol>
+        <ul>1 - <span id="necesita_medicion9"></span></ul> <!-- Medicion -->
+        <ul>2 - <span id="necesita_senalizacion9"></span></ul> <!-- Señalizacion -->
+        <ul>3 - <span id="distancias9"></span></ul> <!-- Medicion distancia ocupacional, poblacional y X-->
+      </ol>
+      </div>
+    </div>
+
 
   </div>
 
